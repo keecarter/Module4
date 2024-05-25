@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+          <title>Module 4: Lab 2</title>
+        </head>
+            <style>
+                body {
+                  font-family: Arial, Helvetica, sans-serif;
+                  background-color: #e3f2fd;
+}
+                .card {
+                padding: 10px;
+                border: 1px solid black;
+                border-radius: 5px;
+                width: 30%;
+                box-sizing: border-box;
+}
+
+                .card-title {
+                font-weight: 600;
+                font-size: 3em;
+                padding: 0 0 10px 0;
+}
+                .card-description {
+                font-weight: 400;
+                font-size: 2em;
+}
+
+
+            </style>
+        <body>
+            <template id="card-template" >
+                <div class="card">
+                    <div class="card-body" >
+                    <div class="card-title" ></div>
+                    <div class="card-text" ></div>
+                 </div>
+                </div>
+            </template >
+<div id="card-list" ></div>
+
+<script>
+    //a
+    function addCard(title, content) {
+        const template = document
+            .getElementById("card-template")
+            .content.cloneNode(true);
+        template.querySelector(".card-title").innerText = title;
+  const cardBody = template.querySelector(".card-body");
+
+  if (typeof content === "string") {
+    if (content.startsWith("http://") || content.startsWith("https://")) {
+      const img = document.createElement("img");
+      img.src = content;
+      img.alt = title;
+      img.style.width = "100%";
+      cardBody.appendChild(img);
+    } else {
+      const textElement = document.createElement("p");
+      textElement.innerText = content;
+      cardBody.appendChild(textElement);
+    }
+  } else if (content instanceof Element) {
+    cardBody.appendChild(content);
+  }
+  document.querySelector("#card-list").appendChild(template);
+}
+    //addCard("Keidra", "Age: 25");
+//b
+const data = [
+    {name: "bob", age: 23 },
+    {name: "alice", age: 39 },
+];
+
+data.forEach((person) => {
+  addCard(person.name, `Age: ${person.age}`);
+});
+
+//c
+const artist = [
+  {
+    name: "Van Gogh",
+    portfolio: [
+      {
+        title: "portrait",
+        url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436532/1671316/main-image",
+      },
+      {
+        title: "sky",
+        url: "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
+      },
+    ],
+  },
+  {
+    name: "Clementine Hunter",
+    portfolio: [
+      {
+        title: "Zinnias in a Pot",
+        url: "https://i.ibb.co/p3ngNt7/Screenshot-2024-05-17-at-9-59-34-AM.png",
+      },
+      {
+        title: "The Wash",
+        url: "https://i.ibb.co/PT8k50d/Screenshot-2024-05-17-at-9-59-57-AM.png",
+      },
+    ],
+  },
+  {
+    name: "Alma Thomas",
+    portfolio: [
+      {
+        title: "Wind and Crepe Myrtle Concerto",
+        url: "https://i.ibb.co/Ss4Xprs/Screenshot-2024-05-17-at-10-01-17-AM.png",
+      },
+      {
+        title: "The Eclipse",
+        url: "https://i.ibb.co/hYMgTQ8/Screenshot-2024-05-17-at-10-00-47-AM.png",
+      },
+    ],
+  },
+];
+
+
+
+
+
+function addArtistCard(artist) {
+  const artistContent = document.createElement("div");
+
+  
+  const art = document.createElement("h3");
+  artistContent.appendChild(art);
+
+  
+  const subtitle = document.createElement("h4");
+  subtitle.innerText = "Portfolio:";
+  artistContent.appendChild(subtitle);
+
+  
+  artist.portfolio.forEach((item) => {
+    const img = document.createElement("img");
+    img.src = item.url;
+    img.alt = item.title;
+    img.style.width = "25%";
+    img.style.marginTop = "10px";
+    artistContent.appendChild(img);
+  });
+
+  addCard(artist.name, artistContent);
+}
+
+artist.forEach(addArtistCard);
+
+    </script>
+</body>
+</html>
