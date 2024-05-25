@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    animation: slideChangeColor 10s infinite;
+}
+
+@keyframes slideChangeColor {
+    0% {
+        transform: translateY(0);
+        background-color: red;
+    }
+    50% {
+        transform: translateY(100vh);
+        background-color: blue;
+    }
+    100% {
+        transform: translateY(0);
+        background-color: red;
+    }
+}
